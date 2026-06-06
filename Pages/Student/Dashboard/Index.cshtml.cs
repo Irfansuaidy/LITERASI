@@ -30,7 +30,7 @@ namespace Literasi.Pages.Student
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (string.IsNullOrEmpty(userIdClaim) || !int.TryParse(userIdClaim, out int userId))
             {
-                return RedirectToPage("/Account/Login");
+                return RedirectToPage("/Auth/Login");
             }
 
             var studentData = await _context.Set<global::Literasi.Models.Student>()

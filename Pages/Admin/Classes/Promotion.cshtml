@@ -1,0 +1,235 @@
+@page
+@model Literasi.Pages.Admin.Classes.PromotionModel
+
+@{
+    ViewData["Title"] = "Kenaikan Kelas & Kelulusan";
+}
+
+<div class="container-fluid">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold mb-1">Kenaikan Kelas & Kelulusan</h2>
+            <p class="text-muted mb-0">Kelola kenaikan kelas massal atau proses kelulusan siswa</p>
+        </div>
+        <a asp-page="/Admin/Dashboard/Index" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left me-1"></i> Kembali
+        </a>
+        <a asp-page="/Admin/Classes/Index" class="btn btn-primary">
+            <i class="bi bi-journal-text me-1"></i> Kelola Kelas
+        </a>
+    </div>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show rounded-3" role="alert">
+            <i class="bi bi-check-circle me-2"></i> @TempData["Success"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show rounded-3" role="alert">
+            <i class="bi bi-exclamation-triangle me-2"></i> @TempData["Error"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    <div class="row g-4">
+        <!-- Panel Utama -->
+        <div class="col-xl-8">
+            <div class="card border-0 shadow-sm rounded-4 mb-4">
+                <div class="card-body p-4">
+                    <h5 class="fw-bold mb-3">1. Pilih Kelas Asal</h5>
+
+                    <form method="get" id="sourceClassForm">
+                        <div class="row align-items-end g-3">
+                            <div class="col-md-9">
+                                <label for="sourceClassSelect" class="form-label small fw-semibold">Kelas Asal</label>
+                                <select id="sourceClassSelect" name="SourceClassId" asp-for="SourceClassId"
+                                        asp-items="Model.SourceClassOptions" class="form-select"
+                                        onchange="document.getElementById('sourceClassForm').submit();">
+                                    <option value="">-- Pilih Kelas Asal --</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <button type="submit" class="btn btn-primary w-100">
+                                    <i class="bi bi-search me-1"></i> Tampilkan
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                    @if (Model.SourceClassId.HasValue)
+                    {
+                        <hr class="my-4" />
+
+                        <form method="post">
+                            <input type="hidden" name="SourceClassId" value="@Model.SourceClassId" />
+
+                            <h5 class="fw-bold mb-3 text-primary">2. Daftar Siswa & Proses</h5>
+
+                            @if (Model.Students.Any())
+                            {
+                                <div class="table-responsive mb-4" style="max-height: 400px; overflow-y: auto;">
+                                    <table class="table table-hover align-middle">
+                                        <thead class="table-light sticky-top">
+                                            <tr>
+                                                <th width="40px" class="text-center">
+                                                    <input class="form-check-input" type="checkbox" id="selectAll">
+                                                </th>
+                                                <th>Nama Lengkap</th>
+                                                <th>NISN</th>
+                                                <th>Jenis Kelamin</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @for (int i = 0; i < Model.Students.Count; i++)
+                                            {
+                                                <tr>
+                                                    <td class="text-center">
+                                                        <input class="form-check-input student-checkbox" type="checkbox"
+                                                               name="SelectedStudentIds" value="@Model.Students[i].StudentId">
+                                                    </td>
+                                                    <td class="fw-semibold">@Model.Students[i].FullName</td>
+                                                    <td><code>@Model.Students[i].Nisn</code></td>
+                                                    <td>@(Model.Students[i].Gender == "L" ? "Laki-laki" : "Perempuan")</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div class="card bg-light border-0 rounded-4">
+                                    <div class="card-body p-4">
+                                        <h6 class="fw-bold mb-3"><i class="bi bi-gear-fill text-secondary me-1"></i> Pengaturan
+                                            Kenaikan / Kelulusan</h6>
+
+                                            <div class="form-check form-switch mb-3">
+                                                <input class="form-check-input" type="checkbox" id="isGraduation"
+                                                       asp-for="IsGraduation" onchange="toggleGraduation(this)">
+                                                <label class="form-check-label fw-semibold text-danger" for="isGraduation">
+                                                    Tandai sebagai Kelulusan (Arsip ke Disk & Hapus dari Database)
+                                                </label>
+                                            </div>
+
+                                            <div class="mb-4" id="targetClassContainer">
+                                                <label for="targetClassSelect" class="form-label small fw-semibold">Kelas Tujuan
+                                                    (Kenaikan Kelas)</label>
+                                                    <select id="targetClassSelect" name="TargetClassId" asp-for="TargetClassId"
+                                                            asp-items="Model.TargetClassOptions" class="form-select">
+                                                        <option value="">-- Pilih Kelas Tujuan --</option>
+                                                    </select>
+                                                </div>
+
+                                                <div class="d-grid">
+                                                    <button type="submit" class="btn btn-success py-2 fw-semibold"
+                                                            onclick="return confirmAction();">
+                                                        <i class="bi bi-check2-circle me-1"></i> Jalankan Proses Sekarang
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                            else
+                                    {
+                                        <div class="alert alert-info rounded-3 text-center my-4">
+                                            <i class="bi bi-info-circle me-2"></i> Tidak ada siswa aktif di kelas ini.
+                                        </div>
+                                    }
+                                </form>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Panel Samping: Arsip Kelulusan -->
+                <div class="col-xl-4">
+                    <div class="card border-0 shadow-sm rounded-4">
+                        <div class="card-header bg-white border-0 pt-4 px-4">
+                            <h5 class="fw-bold mb-0">
+                                <i class="bi bi-archive-fill text-warning me-1"></i> Arsip Kelulusan (.JSON)
+                            </h5>
+                            <p class="text-muted small mb-0">File arsip kelulusan siswa yang disimpan di disk server</p>
+                        </div>
+                        <div class="card-body px-4 pb-4">
+                            @if (Model.ArchivedFiles.Any())
+                            {
+                                <div class="list-group list-group-flush">
+                                    @foreach (var file in Model.ArchivedFiles)
+                                    {
+                                        <div class="list-group-item px-0 py-3 d-flex justify-content-between align-items-center">
+                                            <div class="min-w-0">
+                                                <h6 class="fw-semibold text-truncate mb-1" title="@file.FileName">@file.FileName</h6>
+                                                <small class="text-muted block">
+                                                    Ukuran: @(Math.Round(file.FileSize / 1024.0, 2)) KB &bull;
+                                                    @file.CreatedAt.ToString("dd MMM yyyy, HH:mm")
+                                                </small>
+                                            </div>
+                                            <a href="~/archives/@file.FileName" download class="btn btn-sm btn-outline-primary ms-2">
+                                                <i class="bi bi-download"></i>
+                                            </a>
+                                        </div>
+                                    }
+                                </div>
+                            }
+                            else
+                            {
+                                <p class="text-muted text-center py-4 my-2 small">
+                                    <i class="bi bi-folder2-open d-block fs-3 mb-2 text-secondary"></i>
+                                    Belum ada file arsip kelulusan.
+                                </p>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        @section Scripts {
+            <script>
+                // Select All Checkboxes
+                document.getElementById('selectAll')?.addEventListener('change', function () {
+                    const checkboxes = document.querySelectorAll('.student-checkbox');
+                    checkboxes.forEach(cb => cb.checked = this.checked);
+                });
+
+                // Toggle Graduation Options
+                function toggleGraduation(checkbox) {
+                    const targetSelect = document.getElementById('targetClassSelect');
+                    const targetContainer = document.getElementById('targetClassContainer');
+                    if (checkbox.checked) {
+                        targetSelect.value = '';
+                        targetSelect.disabled = true;
+                        targetContainer.style.opacity = '0.5';
+                    } else {
+                        targetSelect.disabled = false;
+                        targetContainer.style.opacity = '1';
+                    }
+                }
+
+                // Confirm Action
+                function confirmAction() {
+                    const isGrad = document.getElementById('isGraduation').checked;
+                    const checkedCount = document.querySelectorAll('.student-checkbox:checked').length;
+
+                    if (checkedCount === 0) {
+                        alert('Pilih minimal satu siswa terlebih dahulu.');
+                        return false;
+                    }
+
+                    if (isGrad) {
+                        return confirm(`PERHATIAN!\n\nAnda memilih untuk meluluskan ${checkedCount} siswa.\n\nSiswa yang lulus akan diarsipkan datanya ke disk server dan akun mereka akan dihapus dari database aktif secara permanen.\n\nApakah Anda yakin ingin melanjutkan?`);
+                    } else {
+                        const targetClassName = document.getElementById('targetClassSelect').options[document.getElementById('targetClassSelect').selectedIndex].text;
+                        if (!document.getElementById('targetClassSelect').value) {
+                            alert('Pilih kelas tujuan terlebih dahulu.');
+                            return false;
+                        }
+                        return confirm(`Apakah Anda yakin ingin menaikkan ${checkedCount} siswa ke kelas: ${targetClassName}?`);
+                    }
+                }
+            </script>
+        }

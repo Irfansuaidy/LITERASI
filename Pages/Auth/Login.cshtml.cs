@@ -3,7 +3,6 @@ using Literasi.Data;
 using Microsoft.EntityFrameworkCore;
 using Literasi.Models.ViewModels;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Security.Claims;
@@ -66,30 +65,30 @@ public class LoginModel : PageModel
                 user.Role.RoleName)
         };
 
-        var identity =
-            new ClaimsIdentity(
-                claims,
-                CookieAuthenticationDefaults.AuthenticationScheme);
-
-        await HttpContext.SignInAsync(
-            CookieAuthenticationDefaults.AuthenticationScheme,
-            new ClaimsPrincipal(identity));
-
         if (user.Role.RoleName == "Admin")
         {
+            await SignInRoleAsync("AdminAuth", claims);
             return RedirectToPage("/Admin/Dashboard/Index");
         }
 
         if (user.Role.RoleName == "Guru")
         {
+            await SignInRoleAsync("TeacherAuth", claims);
             return RedirectToPage("/Teacher/Dashboard/Index");
         }
 
         if (user.Role.RoleName == "Siswa")
         {
+            await SignInRoleAsync("StudentAuth", claims);
             return RedirectToPage("/Student/Dashboard/Index");
         }
 
         return RedirectToPage("/Index");
+    }
+
+    private async Task SignInRoleAsync(string scheme, List<Claim> claims)
+    {
+        var identity = new ClaimsIdentity(claims, scheme);
+        await HttpContext.SignInAsync(scheme, new ClaimsPrincipal(identity));
     }
 }

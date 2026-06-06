@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "2nhPiWAK02yuHwYeIZcqjbGP42omTVH4w5IrT2vHw8Y=",
+  "Hash": "EARpvykRuQRDX48pVbXrc8RqMopVd/YeeXGKLECl4kk=",
   "Source": "LITERASI",
   "BasePath": "_content/LITERASI",
   "Mode": "Default",
@@ -53,6 +53,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "/home/irfann/informatika/Literasi/obj/Debug/net8.0/scopedcss/projectbundle/LITERASI.bundle.scp.css"
+    },
+    {
+      "Identity": "/home/irfann/informatika/Literasi/wwwroot/archives/.gitkeep",
+      "SourceId": "LITERASI",
+      "SourceType": "Discovered",
+      "ContentRoot": "/home/irfann/informatika/Literasi/wwwroot/",
+      "BasePath": "_content/LITERASI",
+      "RelativePath": "archives/.gitkeep",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/archives/.gitkeep"
     },
     {
       "Identity": "/home/irfann/informatika/Literasi/wwwroot/css/site.css",
@@ -1193,6 +1212,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/lib/jquery/LICENSE.txt"
+    },
+    {
+      "Identity": "/home/irfann/informatika/Literasi/wwwroot/uploads/materials/0aa1af4d-8613-4165-bc82-254948cffb05_MODUL XI-2025.pdf",
+      "SourceId": "LITERASI",
+      "SourceType": "Discovered",
+      "ContentRoot": "/home/irfann/informatika/Literasi/wwwroot/",
+      "BasePath": "_content/LITERASI",
+      "RelativePath": "uploads/materials/0aa1af4d-8613-4165-bc82-254948cffb05_MODUL XI-2025.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/uploads/materials/0aa1af4d-8613-4165-bc82-254948cffb05_MODUL XI-2025.pdf"
     }
   ]
 }

@@ -33,6 +33,18 @@ public class EditModel : PageModel
 
     public async Task<IActionResult> OnPostAsync()
     {
+        ModelState.Remove("AcademicYear.Classes");
+
+        if (string.IsNullOrWhiteSpace(AcademicYear.YearName))
+        {
+            ModelState.AddModelError("AcademicYear.YearName", "Nama tahun ajaran wajib diisi.");
+        }
+
+        if (!AcademicYear.IsValidPeriod())
+        {
+            ModelState.AddModelError(string.Empty, "Tanggal selesai harus lebih besar dari tanggal mulai.");
+        }
+
         if (!ModelState.IsValid)
             return Page();
 

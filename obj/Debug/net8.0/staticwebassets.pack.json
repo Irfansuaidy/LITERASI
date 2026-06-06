@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets/LITERASI.bundle.scp.css"
     },
     {
+      "Id": "/home/irfann/informatika/Literasi/wwwroot/archives/.gitkeep",
+      "PackagePath": "staticwebassets/archives/.gitkeep"
+    },
+    {
       "Id": "/home/irfann/informatika/Literasi/wwwroot/css/site.css",
       "PackagePath": "staticwebassets/css/site.css"
     },
@@ -243,6 +247,10 @@
     {
       "Id": "/home/irfann/informatika/Literasi/wwwroot/lib/jquery/dist/jquery.min.map",
       "PackagePath": "staticwebassets/lib/jquery/dist/jquery.min.map"
+    },
+    {
+      "Id": "/home/irfann/informatika/Literasi/wwwroot/uploads/materials/0aa1af4d-8613-4165-bc82-254948cffb05_MODUL XI-2025.pdf",
+      "PackagePath": "staticwebassets/uploads/materials/0aa1af4d-8613-4165-bc82-254948cffb05_MODUL XI-2025.pdf"
     },
     {
       "Id": "obj/Debug/net8.0/staticwebassets/msbuild.LITERASI.Microsoft.AspNetCore.StaticWebAssets.props",

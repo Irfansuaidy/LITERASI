@@ -16,7 +16,9 @@
             Kelola tugas siswa
         </p>
     </div>
-
+    <a asp-page="/Teacher/Dashboard/Index" class="btn btn-outline-secondary">
+        Kembali
+    </a>
     <a asp-page="./Create" class="btn btn-primary">
         Tambah Assignment
     </a>
@@ -35,7 +37,8 @@
                     <th>Mapel</th>
                     <th>Kelas</th>
                     <th>Deadline</th>
-                    <th width="180">Aksi</th>
+                    <th>Pengumpulan</th>
+                    <th width="260">Aksi</th>
                 </tr>
             </thead>
 
@@ -47,24 +50,23 @@
 
                         <td>@item.Title</td>
 
+                        <td>@item.TeachingAssignment.Subject.SubjectName</td>
+
+                        <td>@item.TeachingAssignment.Class.ClassName</td>
+
+                        <td>@item.Deadline.ToString("dd MMM yyyy, HH:mm")</td>
+
                         <td>
-                            @item.TeachingAssignment
-                            .Subject
-                            .SubjectName
+                            <span class="badge bg-primary-subtle text-primary">
+                                @item.Submissions.Count submission
+                            </span>
                         </td>
 
                         <td>
-                            @item.TeachingAssignment
-                            .Class
-                            .ClassName
-                        </td>
-
-                        <td>
-                            @item.Deadline
-                            .ToString("dd MMM yyyy")
-                        </td>
-
-                        <td>
+                            <a asp-page="./Submissions" asp-route-id="@item.AssignmentId"
+                               class="btn btn-info btn-sm text-white">
+                                View Submissions
+                            </a>
 
                             <a asp-page="./Edit" asp-route-id="@item.AssignmentId" class="btn btn-warning btn-sm">
                                 Edit

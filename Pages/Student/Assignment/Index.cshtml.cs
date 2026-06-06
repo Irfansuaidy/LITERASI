@@ -27,7 +27,7 @@ namespace Literasi.Pages.Student.Assignments
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (string.IsNullOrEmpty(userIdClaim) || !int.TryParse(userIdClaim, out int userId))
             {
-                return RedirectToPage("/Account/Login");
+                return RedirectToPage("/Auth/Login");
             }
 
             var studentData = await _context.Set<global::Literasi.Models.Student>()
@@ -54,6 +54,10 @@ namespace Literasi.Pages.Student.Assignments
                     SubjectName = a.TeachingAssignment.Subject.SubjectName,
                     Deadline = a.Deadline,
                     MaxScore = a.MaxScore,
+                    Score = a.Submissions
+                        .Where(s => s.StudentId == currentStudentId)
+                        .Select(s => s.Grade != null ? s.Grade.Score : (decimal?)null)
+                        .FirstOrDefault(),
                     // Cek status pengumpulan tugas oleh siswa ini untuk MVP Flow
                     SubmissionStatus = a.Submissions
                         .Where(s => s.StudentId == currentStudentId)
@@ -79,5 +83,6 @@ namespace Literasi.Pages.Student.Assignments
         public DateTime Deadline { get; set; }
         public decimal MaxScore { get; set; }
         public string SubmissionStatus { get; set; } = string.Empty;
+        public decimal? Score { get; set; }
     }
 }

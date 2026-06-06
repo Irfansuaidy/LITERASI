@@ -9,52 +9,35 @@
 
     <!-- Header -->
     <div class="d-flex justify-content-between align-items-center mb-4">
-
         <div>
-            <h2 class="fw-bold mb-1">
-                Selamat Datang, Admin 👋
-            </h2>
-
-            <p class="text-muted mb-0">
-                Kelola seluruh aktivitas Literasi LMS
-            </p>
+            <h2 class="fw-bold mb-1">Selamat Datang, Admin 👋</h2>
+            <p class="text-muted mb-0">Kelola seluruh aktivitas akademik Literasi LMS</p>
         </div>
-
         <div>
-            <span class="badge rounded-pill bg-primary-subtle text-primary fs-6 px-3 py-2">
-                Tahun Ajaran Aktif :
-                @Model.ActiveAcademicYear
+            <form method="post" asp-page="/Auth/Logout" class="d-inline">
+                <button type="submit" class="btn btn-danger">Logout</button>
+            </form>
+            <span class="badge rounded-pill bg-primary-subtle text-primary fs-6 px-3 py-2 shadow-sm">
+                Tahun Ajaran Aktif : @Model.ActiveAcademicYear
             </span>
         </div>
-
     </div>
 
-    <!-- KPI Cards -->
+    <!-- KPI Cards Row 1: Core Entities -->
     <div class="row g-4 mb-4">
-
         <!-- Students -->
         <div class="col-xl-3 col-md-6">
             <div class="card border-0 shadow-sm rounded-4 h-100">
                 <div class="card-body">
-
                     <div class="d-flex justify-content-between">
-
                         <div>
-                            <small class="text-muted">
-                                Jumlah Siswa
-                            </small>
-
-                            <h2 class="fw-bold mt-2">
-                                @Model.TotalStudents
-                            </h2>
+                            <small class="text-muted">Jumlah Siswa</small>
+                            <h2 class="fw-bold mt-2">@Model.TotalStudents</h2>
                         </div>
-
                         <div class="bg-primary bg-opacity-10 rounded-circle p-3 align-self-start">
                             <i class="bi bi-people-fill text-primary fs-4"></i>
                         </div>
-
                     </div>
-
                 </div>
             </div>
         </div>
@@ -63,25 +46,15 @@
         <div class="col-xl-3 col-md-6">
             <div class="card border-0 shadow-sm rounded-4 h-100">
                 <div class="card-body">
-
                     <div class="d-flex justify-content-between">
-
                         <div>
-                            <small class="text-muted">
-                                Jumlah Guru
-                            </small>
-
-                            <h2 class="fw-bold mt-2">
-                                @Model.TotalTeachers
-                            </h2>
+                            <small class="text-muted">Jumlah Guru</small>
+                            <h2 class="fw-bold mt-2">@Model.TotalTeachers</h2>
                         </div>
-
                         <div class="bg-success bg-opacity-10 rounded-circle p-3 align-self-start">
                             <i class="bi bi-person-workspace text-success fs-4"></i>
                         </div>
-
                     </div>
-
                 </div>
             </div>
         </div>
@@ -90,25 +63,15 @@
         <div class="col-xl-3 col-md-6">
             <div class="card border-0 shadow-sm rounded-4 h-100">
                 <div class="card-body">
-
                     <div class="d-flex justify-content-between">
-
                         <div>
-                            <small class="text-muted">
-                                Jumlah Kelas
-                            </small>
-
-                            <h2 class="fw-bold mt-2">
-                                @Model.TotalClasses
-                            </h2>
+                            <small class="text-muted">Jumlah Kelas</small>
+                            <h2 class="fw-bold mt-2">@Model.TotalClasses</h2>
                         </div>
-
                         <div class="bg-warning bg-opacity-10 rounded-circle p-3 align-self-start">
                             <i class="bi bi-building text-warning fs-4"></i>
                         </div>
-
                     </div>
-
                 </div>
             </div>
         </div>
@@ -117,126 +80,265 @@
         <div class="col-xl-3 col-md-6">
             <div class="card border-0 shadow-sm rounded-4 h-100">
                 <div class="card-body">
-
                     <div class="d-flex justify-content-between">
-
                         <div>
-                            <small class="text-muted">
-                                Mata Pelajaran
-                            </small>
-
-                            <h2 class="fw-bold mt-2">
-                                @Model.TotalSubjects
-                            </h2>
+                            <small class="text-muted">Mata Pelajaran</small>
+                            <h2 class="fw-bold mt-2">@Model.TotalSubjects</h2>
                         </div>
-
                         <div class="bg-info bg-opacity-10 rounded-circle p-3 align-self-start">
                             <i class="bi bi-book-fill text-info fs-4"></i>
                         </div>
-
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <!-- KPI Cards Row 2: Learning Activities -->
+    <div class="row g-4 mb-4">
+        <!-- Learning Materials -->
+        <div class="col-xl-4 col-md-6">
+            <div class="card border-0 shadow-sm rounded-4 bg-light">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="bg-primary bg-opacity-10 text-primary rounded-4 p-3 me-3">
+                            <i class="bi bi-file-earmark-text-fill fs-3"></i>
+                        </div>
+                        <div>
+                            <small class="text-muted d-block">Total Bahan Ajar</small>
+                            <h3 class="fw-bold mb-0">@Model.TotalMaterials</h3>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
+        <!-- Assignments -->
+        <div class="col-xl-4 col-md-6">
+            <div class="card border-0 shadow-sm rounded-4 bg-light">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="bg-danger bg-opacity-10 text-danger rounded-4 p-3 me-3">
+                            <i class="bi bi-journal-check fs-3"></i>
+                        </div>
+                        <div>
+                            <small class="text-muted d-block">Total Tugas</small>
+                            <h3 class="fw-bold mb-0">@Model.TotalAssignments</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Submissions -->
+        <div class="col-xl-4 col-md-12">
+            <div class="card border-0 shadow-sm rounded-4 bg-light">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="bg-success bg-opacity-10 text-success rounded-4 p-3 me-3">
+                            <i class="bi bi-send-check-fill fs-3"></i>
+                        </div>
+                        <div>
+                            <small class="text-muted d-block">Tugas Dikumpulkan</small>
+                            <h3 class="fw-bold mb-0">@Model.TotalSubmissions</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- Teaching Assignment -->
-    <div class="card border-0 shadow-sm rounded-4">
-
-        <div class="card-header bg-white border-0 pt-4 px-4">
-
-            <div class="d-flex justify-content-between align-items-center">
-
-                <h5 class="fw-bold mb-0">
-                    Teaching Assignment
-                </h5>
-
-                <a asp-page="/Admin/TeachingAssignment/Index" class="btn btn-outline-primary btn-sm">
-                    Lihat Semua
-                </a>
-
-            </div>
-
-        </div>
-
-        <div class="card-body">
-
-            <div class="table-responsive">
-
-                <table class="table align-middle">
-
-                    <thead>
-
-                        <tr>
-                            <th>Guru Pengampu</th>
-                            <th>Mata Pelajaran</th>
-                            <th>Kelas</th>
-                            <th>Status</th>
-                        </tr>
-
-                    </thead>
-
-                    <tbody>
-
-                        @if (Model.TeachingAssignments.Any())
-                        {
-                            @foreach (var item in Model.TeachingAssignments)
-                            {
+    <!-- Main Content Grid -->
+    <div class="row g-4">
+        <!-- Left Column: Tables -->
+        <div class="col-xl-8">
+            
+            <!-- Recent Materials Table -->
+            <div class="card border-0 shadow-sm rounded-4 mb-4">
+                <div class="card-header bg-white border-0 pt-4 px-4">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h5 class="fw-bold mb-0">Bahan Ajar Terbaru</h5>
+                        <i class="bi bi-file-earmark-arrow-up text-primary fs-5"></i>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table align-middle table-hover">
+                            <thead>
                                 <tr>
-
-                                    <td>
-                                        @item.TeacherName
-                                    </td>
-
-                                    <td>
-                                        @item.SubjectName
-                                    </td>
-
-                                    <td>
-                                        @item.ClassName
-                                    </td>
-
-                                    <td>
-
-                                        @if (item.IsActive)
-                                        {
-                                            <span class="badge bg-success-subtle text-success">
-                                                Aktif
-                                            </span>
-                                        }
-                                        else
-                                        {
-                                            <span class="badge bg-danger-subtle text-danger">
-                                                Nonaktif
-                                            </span>
-                                        }
-
-                                    </td>
-
+                                    <th>Judul Materi</th>
+                                    <th>Tipe</th>
+                                    <th>Kelas</th>
+                                    <th>Guru</th>
+                                    <th class="text-center">Aksi</th>
                                 </tr>
-                            }
-                        }
-                        else
-                        {
-                            <tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.RecentMaterials.Any())
+                                {
+                                    @foreach (var mat in Model.RecentMaterials)
+                                    {
+                                        <tr>
+                                            <td class="fw-semibold">@mat.Title</td>
+                                            <td>
+                                                <span class="badge @(mat.MaterialType == "PDF" ? "bg-danger-subtle text-danger" : mat.MaterialType == "PPT" ? "bg-warning-subtle text-warning" : "bg-info-subtle text-info")">
+                                                    @mat.MaterialType
+                                                </span>
+                                            </td>
+                                            <td>@mat.ClassName</td>
+                                            <td>@mat.TeacherName</td>
+                                            <td class="text-center">
+                                                <a asp-page="./MaterialDetail" asp-route-id="@mat.MaterialId" class="btn btn-sm btn-outline-secondary">
+                                                    <i class="bi bi-eye"></i> Detail
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="5" class="text-center text-muted py-4">
+                                            Belum ada bahan ajar yang diunggah.
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
 
-                                <td colspan="4" class="text-center text-muted py-4">
-                                    Belum ada data Teaching Assignment
-                                </td>
-
-                            </tr>
-                        }
-
-                    </tbody>
-
-                </table>
-
+            <!-- Teaching Assignment Table -->
+            <div class="card border-0 shadow-sm rounded-4">
+                <div class="card-header bg-white border-0 pt-4 px-4">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h5 class="fw-bold mb-0">Teaching Assignment</h5>
+                        <a asp-page="/Admin/TeachingAssignment/Index" class="btn btn-outline-primary btn-sm">
+                            Lihat Semua
+                        </a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table align-middle">
+                            <thead>
+                                <tr>
+                                    <th>Guru Pengampu</th>
+                                    <th>Mata Pelajaran</th>
+                                    <th>Kelas</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.TeachingAssignments.Any())
+                                {
+                                    @foreach (var item in Model.TeachingAssignments)
+                                    {
+                                        <tr>
+                                            <td class="fw-semibold">@item.TeacherName</td>
+                                            <td>@item.SubjectName</td>
+                                            <td>@item.ClassName</td>
+                                            <td>
+                                                @if (item.IsActive)
+                                                {
+                                                    <span class="badge bg-success-subtle text-success">Aktif</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="badge bg-danger-subtle text-danger">Nonaktif</span>
+                                                }
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="4" class="text-center text-muted py-4">
+                                            Belum ada data Teaching Assignment
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
 
         </div>
 
+        <!-- Right Column: Sidebar -->
+        <div class="col-xl-4">
+            
+            <!-- Quick Actions Panel -->
+            <div class="card border-0 shadow-sm rounded-4 mb-4">
+                <div class="card-header bg-white border-0 pt-4 px-4">
+                    <h5 class="fw-bold mb-0">Aksi Cepat Admin</h5>
+                </div>
+                <div class="card-body">
+                    <div class="d-grid gap-2">
+                        <a asp-page="/Admin/Student/Index" class="btn btn-outline-primary text-start py-2.5">
+                            <i class="bi bi-people-fill me-2 text-primary"></i> Kelola & Edit Siswa
+                        </a>
+                        <a asp-page="/Admin/Teachers/Index" class="btn btn-outline-success text-start py-2.5">
+                            <i class="bi bi-person-workspace me-2 text-success"></i> Kelola & Edit Guru
+                        </a>
+                        <a asp-page="/Admin/Classes/Promotion" class="btn btn-outline-warning text-start py-2.5">
+                            <i class="bi bi-arrow-up-circle-fill me-2 text-warning"></i> Kenaikan Kelas & Kelulusan
+                        </a>
+                        <a asp-page="/Admin/AcademicYears/Index" class="btn btn-outline-secondary text-start py-2.5">
+                            <i class="bi bi-calendar2-week-fill me-2 text-secondary"></i> Kelola Tahun Ajaran
+                        </a>
+                        <a asp-page="/Admin/Import/Index" class="btn btn-outline-info text-start py-2.5">
+                            <i class="bi bi-file-earmark-excel-fill me-2 text-info"></i> Import Data via CSV
+                        </a>
+                        <a asp-page="/Admin/Reports/FinalGrades" class="btn btn-outline-danger text-start py-2.5">
+                            <i class="bi bi-printer-fill me-2 text-danger"></i> Cetak Rekap Nilai Akhir
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Submissions List -->
+            <div class="card border-0 shadow-sm rounded-4">
+                <div class="card-header bg-white border-0 pt-4 px-4">
+                    <h5 class="fw-bold mb-0">Pengumpulan Tugas Terbaru</h5>
+                </div>
+                <div class="card-body">
+                    @if (Model.RecentSubmissions.Any())
+                    {
+                        <div class="list-group list-group-flush">
+                            @foreach (var sub in Model.RecentSubmissions)
+                            {
+                                <div class="list-group-item px-0 py-3 border-bottom-0">
+                                    <div class="d-flex justify-content-between align-items-start mb-1">
+                                        <h6 class="fw-bold mb-0 text-slate-800">@sub.StudentName</h6>
+                                        <span class="badge @(sub.Status == "Submitted" ? "bg-primary-subtle text-primary" : sub.Status == "Reviewed" ? "bg-success-subtle text-success" : "bg-danger-subtle text-danger")" style="font-size: 10px;">
+                                            @(sub.Status == "Submitted" ? "Dikumpulkan" : sub.Status == "Reviewed" ? "Dinilai" : "Terlambat")
+                                        </span>
+                                    </div>
+                                    <p class="text-muted small mb-1">
+                                        Tugas: <strong>@sub.AssignmentTitle</strong> (@sub.ClassName)
+                                    </p>
+                                    <small class="text-muted" style="font-size: 11px;">
+                                        <i class="bi bi-clock me-1"></i> @sub.SubmittedAt.ToString("dd MMM yyyy, HH:mm")
+                                    </small>
+                                </div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="text-center py-4 my-2 text-muted">
+                            <i class="bi bi-send-x d-block fs-3 mb-2 text-secondary"></i>
+                            Belum ada tugas dikumpulkan.
+                        </div>
+                    }
+                </div>
+            </div>
+
+        </div>
     </div>
 
 </div>

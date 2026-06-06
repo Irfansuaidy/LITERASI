@@ -1,0 +1,7 @@
+@page "{id:int}"
+@model Literasi.Pages.Student.Assignments.DetailsRedirectModel
+
+@{
+    // Redirect plural route /Student/Assignments/Details/{id} -> /Student/Assignment/Details/{id}
+    Response.Redirect(Url.Page("/Student/Assignment/Details", new { id = (int)RouteData.Values["id"] }));
+}

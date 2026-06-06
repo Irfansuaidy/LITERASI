@@ -12,6 +12,9 @@
             <h2 class="fw-bold mb-1">Penugasan Mengajar</h2>
             <p class="text-muted mb-0">Kelola penugasan guru per mata pelajaran dan kelas</p>
         </div>
+        <a asp-page="/Admin/Dashboard/Index" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left me-1"></i> Kembali
+        </a>
         <a asp-page="/Admin/TeachingAssignment/Create" class="btn btn-primary">
             <i class="bi bi-plus-lg me-1"></i> Tambah Penugasan
         </a>
@@ -66,8 +69,7 @@
                                     <td>
                                         <form method="post" asp-page-handler="Delete"
                                               onsubmit="return confirm('Hapus penugasan ini?')">
-                                            <input type="hidden" name="id"
-                                                   value="@item.TeachingAssignmentId" />
+                                            <input type="hidden" name="id" value="@item.TeachingAssignmentId" />
                                             <button type="submit" class="btn btn-sm btn-outline-danger">
                                                 <i class="bi bi-trash"></i> Hapus
                                             </button>

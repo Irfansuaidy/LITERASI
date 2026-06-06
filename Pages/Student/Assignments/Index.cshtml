@@ -1,0 +1,7 @@
+@page
+@model Literasi.Pages.Student.Assignments.IndexRedirectModel
+
+@{
+    // Temporary redirect page to support legacy plural route /Student/Assignments/Index
+    Response.Redirect(Url.Page("/Student/Assignment/Index"));
+}

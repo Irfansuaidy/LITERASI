@@ -36,11 +36,21 @@ public class IndexModel : PageModel
                 IsActive   = s.User.IsActive
             })
             .ToListAsync();
+
+        foreach (var classGroup in Students.GroupBy(s => s.ClassName))
+        {
+            var attendanceNumber = 1;
+            foreach (var student in classGroup)
+            {
+                student.AttendanceNumber = attendanceNumber++;
+            }
+        }
     }
 
     public class StudentDto
     {
         public int StudentId { get; set; }
+        public int AttendanceNumber { get; set; }
         public string FullName { get; set; } = string.Empty;
         public string Username { get; set; } = string.Empty;
         public string Nisn { get; set; } = string.Empty;

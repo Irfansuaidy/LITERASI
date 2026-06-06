@@ -2,64 +2,93 @@
 @model Literasi.Pages.Teacher.LearningMaterials.IndexModel
 
 @{
-    ViewData["Title"] = "Learning Materials";
+    ViewData["Title"] = "Bahan Ajar Saya";
 }
 
-<div class="d-flex justify-content-between mb-3">
+<div class="container-fluid">
 
-    <h3>Learning Materials</h3>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold mb-1">Bahan Ajar Saya</h2>
+            <p class="text-muted mb-0">Kelola seluruh materi pelajaran yang Anda unggah</p>
+        </div>
+        <a asp-page="./Create" class="btn btn-primary">
+            <i class="bi bi-plus-lg me-1"></i> Tambah Materi
+        </a>
+        <a asp-page="/Teacher/Dashboard/Index" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left me-1"></i> Kembali
+        </a>
+    </div>
 
-    <a asp-page="./Create" class="btn btn-primary">
-        Tambah Materi
-    </a>
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show rounded-3" role="alert">
+            <i class="bi bi-check-circle me-2"></i> @TempData["Success"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
 
-</div>
-
-<div class="card border-0 shadow-sm rounded-4">
-
-    <div class="card-body">
-
-        <table class="table">
-
-            <thead>
-                <tr>
-                    <th>Judul</th>
-                    <th>Mapel</th>
-                    <th>Kelas</th>
-                    <th>Tanggal</th>
-                </tr>
-            </thead>
-
-            <tbody>
-
-                @foreach (var item in Model.LearningMaterials)
-                {
-                    <tr>
-
-                        <td>
-                            @item.Title
-                        </td>
-
-                        <td>
-                            @item.TeachingAssignment.Subject.SubjectName
-                        </td>
-
-                        <td>
-                            @item.TeachingAssignment.Class.ClassName
-                        </td>
-
-                        <td>
-                            @item.UploadedAt
-                            .ToString("dd/MM/yyyy")
-                        </td>
-
-                    </tr>
-                }
-
-            </tbody>
-
-        </table>
-
+    <div class="card border-0 shadow-sm rounded-4">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Judul</th>
+                            <th>Tipe</th>
+                            <th>Mapel</th>
+                            <th>Kelas</th>
+                            <th>Tanggal Upload</th>
+                            <th class="text-center">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.LearningMaterials.Any())
+                        {
+                            int no = 1;
+                            @foreach (var item in Model.LearningMaterials)
+                            {
+                                <tr>
+                                    <td>@no++</td>
+                                    <td class="fw-semibold">@item.Title</td>
+                                    <td>
+                                        <span
+                                            class="badge @(item.MaterialType.ToString() == "PDF" ? "bg-danger-subtle text-danger" : item.MaterialType.ToString() == "PPT" ? "bg-warning-subtle text-warning" : "bg-info-subtle text-info")">
+                                            @item.MaterialType
+                                        </span>
+                                    </td>
+                                    <td>@item.TeachingAssignment.Subject.SubjectName</td>
+                                    <td>@item.TeachingAssignment.Class.ClassName</td>
+                                    <td>@item.UploadedAt.ToString("dd MMM yyyy")</td>
+                                    <td class="text-center">
+                                        <div class="d-flex justify-content-center gap-1">
+                                            <a asp-page="./Edit" asp-route-id="@item.MaterialId"
+                                               class="btn btn-sm btn-outline-warning">
+                                                <i class="bi bi-pencil-square"></i>
+                                            </a>
+                                            <a asp-page="./Delete" asp-route-id="@item.MaterialId"
+                                               class="btn btn-sm btn-outline-danger">
+                                                <i class="bi bi-trash3"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="7" class="text-center text-muted py-4">
+                                    <i class="bi bi-folder2-open d-block fs-3 mb-2"></i>
+                                    Belum ada bahan ajar yang diunggah.
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 
 </div>

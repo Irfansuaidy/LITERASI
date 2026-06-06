@@ -72,10 +72,17 @@
                                                 @task.SubmissionStatus
                                             </span>
                                         </div>
+                                        @if (task.Score.HasValue)
+                                        {
+                                            <div class="text-xs flex items-center gap-1">
+                                                <span class="text-slate-400">Nilai:</span>
+                                                <span class="font-bold text-blue-600">@task.Score.Value.ToString("0.##")</span>
+                                            </div>
+                                        }
                                     </div>
                                 </div>
                                 <div class="mt-5">
-                                    <a asp-page="/Student/Assignments/Details" asp-route-id="@task.AssignmentId"
+                                    <a asp-page="/Student/Assignment/Details" asp-route-id="@task.AssignmentId"
                                        class="w-full text-center block bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs py-2.5 rounded-lg transition shadow-sm">
                                         Buka Pengumpulan Tugas
                                     </a>
@@ -118,9 +125,15 @@
                                                     class="px-2 py-0.5 rounded text-xs font-bold @(task.SubmissionStatus == "Belum Mengumpulkan" ? "bg-red-50 text-red-600" : "bg-slate-100 text-slate-600")">
                                                     @task.SubmissionStatus
                                                 </span>
+                                                @if (task.Score.HasValue)
+                                                {
+                                                    <span class="ms-2 px-2 py-0.5 rounded text-xs font-bold bg-blue-50 text-blue-600">
+                                                        Nilai @task.Score.Value.ToString("0.##")
+                                                    </span>
+                                                }
                                             </td>
                                             <td class="p-4 text-center">
-                                                <a asp-page="/Student/Assignments/Details" asp-route-id="@task.AssignmentId"
+                                                <a asp-page="/Student/Assignment/Details" asp-route-id="@task.AssignmentId"
                                                    class="text-xs font-bold text-blue-600 hover:underline">Detail</a>
                                             </td>
                                         </tr>

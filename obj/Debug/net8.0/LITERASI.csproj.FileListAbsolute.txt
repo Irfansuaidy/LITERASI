@@ -93,6 +93,7 @@
 /home/irfann/informatika/Literasi/obj/Debug/net8.0/LITERASI.MvcApplicationPartsAssemblyInfo.cache
 /home/irfann/informatika/Literasi/obj/Debug/net8.0/LITERASI.RazorAssemblyInfo.cache
 /home/irfann/informatika/Literasi/obj/Debug/net8.0/LITERASI.RazorAssemblyInfo.cs
+/home/irfann/informatika/Literasi/obj/Debug/net8.0/LITERASI.sourcelink.json
 /home/irfann/informatika/Literasi/obj/Debug/net8.0/staticwebassets.build.json
 /home/irfann/informatika/Literasi/obj/Debug/net8.0/staticwebassets.development.json
 /home/irfann/informatika/Literasi/obj/Debug/net8.0/staticwebassets/msbuild.LITERASI.Microsoft.AspNetCore.StaticWebAssets.props

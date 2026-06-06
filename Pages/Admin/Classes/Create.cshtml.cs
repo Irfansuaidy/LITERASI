@@ -33,6 +33,9 @@ public class CreateModel : PageModel
 
     public async Task<IActionResult> OnPostAsync()
     {
+        RemoveNavigationValidation();
+        ValidateRequiredSelections();
+
         if (!ModelState.IsValid)
         {
             await PopulateSelectListsAsync();
@@ -65,5 +68,27 @@ public class CreateModel : PageModel
         GradeLevelOptions = new SelectList(gradeLevels, "GradeLevelId", "LevelName");
         AcademicYearOptions = new SelectList(academicYears, "AcademicYearId", "YearName");
         TeacherOptions = new SelectList(teachers, "TeacherId", "User.FullName");
+    }
+
+    private void RemoveNavigationValidation()
+    {
+        ModelState.Remove("Class.AcademicYear");
+        ModelState.Remove("Class.GradeLevel");
+        ModelState.Remove("Class.HomeroomTeacher");
+        ModelState.Remove("Class.Students");
+        ModelState.Remove("Class.TeachingAssignments");
+    }
+
+    private void ValidateRequiredSelections()
+    {
+        if (Class.GradeLevelId <= 0)
+        {
+            ModelState.AddModelError("Class.GradeLevelId", "Tingkat wajib dipilih.");
+        }
+
+        if (Class.AcademicYearId <= 0)
+        {
+            ModelState.AddModelError("Class.AcademicYearId", "Tahun ajaran wajib dipilih.");
+        }
     }
 }

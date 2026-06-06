@@ -33,6 +33,9 @@ public class CreateModel : PageModel
 
     public async Task<IActionResult> OnPostAsync()
     {
+        RemoveNavigationValidation();
+        ValidateRequiredSelections();
+
         if (!ModelState.IsValid)
         {
             await PopulateSelectListsAsync();
@@ -89,5 +92,26 @@ public class CreateModel : PageModel
         TeacherOptions = new SelectList(teachers, "TeacherId", "FullName");
         SubjectOptions = new SelectList(subjects, "SubjectId", "SubjectName");
         ClassOptions   = new SelectList(classes, "ClassId", "DisplayName");
+    }
+
+    private void RemoveNavigationValidation()
+    {
+        ModelState.Remove("Assignment.Teacher");
+        ModelState.Remove("Assignment.Subject");
+        ModelState.Remove("Assignment.Class");
+        ModelState.Remove("Assignment.LearningMaterials");
+        ModelState.Remove("Assignment.Assignments");
+    }
+
+    private void ValidateRequiredSelections()
+    {
+        if (Assignment.TeacherId <= 0)
+            ModelState.AddModelError("Assignment.TeacherId", "Guru wajib dipilih.");
+
+        if (Assignment.SubjectId <= 0)
+            ModelState.AddModelError("Assignment.SubjectId", "Mata pelajaran wajib dipilih.");
+
+        if (Assignment.ClassId <= 0)
+            ModelState.AddModelError("Assignment.ClassId", "Kelas wajib dipilih.");
     }
 }

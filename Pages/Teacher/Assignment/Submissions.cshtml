@@ -1,0 +1,111 @@
+@page "{id:int}"
+@model Literasi.Pages.Teacher.Assignments.SubmissionsModel
+
+@{
+    ViewData["Title"] = "Assignment Submissions";
+}
+
+<div class="d-flex justify-content-between align-items-start mb-4">
+    <div>
+        <h2 class="fw-bold mb-1">Submissions</h2>
+        <p class="text-muted mb-0">
+            @Model.AssignmentTitle
+            @if (!string.IsNullOrWhiteSpace(Model.SubjectName) || !string.IsNullOrWhiteSpace(Model.ClassName))
+            {
+                <span> - @Model.SubjectName @Model.ClassName</span>
+            }
+        </p>
+    </div>
+
+    <a asp-page="/Teacher/Assignment/Index" class="btn btn-outline-secondary">
+        Back
+    </a>
+</div>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["Success"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+
+<div class="card border-0 shadow-sm rounded-4">
+    <div class="card-body">
+        @if (!Model.Submissions.Any())
+        {
+            <div class="text-center text-muted py-5">
+                Belum ada siswa yang mengumpulkan tugas ini.
+            </div>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table class="table align-middle">
+                    <thead>
+                        <tr>
+                            <th>Siswa</th>
+                            <th>Waktu Submit</th>
+                            <th>Status</th>
+                            <th>Jawaban</th>
+                            <th width="280">Nilai & Feedback</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Submissions)
+                        {
+                            <tr>
+                                <td>
+                                    <div class="fw-semibold">@item.StudentName</div>
+                                    <div class="text-muted small">NISN: @item.Nisn</div>
+                                </td>
+                                <td>@item.SubmittedAt.ToString("dd MMM yyyy, HH:mm")</td>
+                                <td>
+                                    <span
+                                        class="badge @(item.Status == "Reviewed" ? "bg-success" : item.Status == "Late" ? "bg-warning text-dark" : "bg-secondary")">
+                                        @item.Status
+                                    </span>
+                                </td>
+                                <td>
+                                    @if (!string.IsNullOrWhiteSpace(item.FilePath))
+                                    {
+                                        <a href="@item.FileUrl" target="_blank" class="btn btn-sm btn-outline-primary">
+                                            File
+                                        </a>
+                                    }
+                                    else if (!string.IsNullOrWhiteSpace(item.ExternalUrl))
+                                    {
+                                        <a href="@item.ExternalUrl" target="_blank" class="btn btn-sm btn-outline-primary">
+                                            Link
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted small">Tidak ada lampiran</span>
+                                    }
+                                </td>
+                                <td>
+                                    <form method="post" class="vstack gap-2">
+                                        <input type="hidden" name="assignmentId" value="@Model.AssignmentId" />
+                                        <input type="hidden" name="submissionId" value="@item.SubmissionId" />
+
+                                        <input name="score" value="@item.Score" type="number" min="0" max="@Model.MaxScore"
+                                               step="0.01" class="form-control form-control-sm"
+                                               placeholder="Nilai maksimal @Model.MaxScore" />
+
+                                        <textarea name="feedback" rows="2" maxlength="1000" class="form-control form-control-sm"
+                                                  placeholder="Feedback">@item.Feedback</textarea>
+
+                                        <button type="submit" class="btn btn-sm btn-primary">
+                                            Simpan Nilai
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+</div>

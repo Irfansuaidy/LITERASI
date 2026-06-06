@@ -1,0 +1,158 @@
+@page "{id:int}"
+@model Literasi.Pages.Admin.Student.EditModel
+
+@{
+    ViewData["Title"] = "Edit Siswa";
+}
+
+<div class="container-fluid">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold mb-1">Edit Siswa</h2>
+            <p class="text-muted mb-0">Perbarui data profil siswa dan atur ulang kata sandi</p>
+        </div>
+        <a asp-page="/Admin/Student/Index" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left me-1"></i> Kembali
+        </a>
+    </div>
+
+    <div class="card border-0 shadow-sm rounded-4">
+        <div class="card-body p-4">
+
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+                
+                <input type="hidden" asp-for="Input.StudentId" />
+                <input type="hidden" asp-for="Input.UserId" />
+
+                <div class="row">
+                    <!-- Informasi Pribadi -->
+                    <div class="col-md-6 border-end">
+                        <h5 class="fw-bold text-primary mb-3">
+                            <i class="bi bi-person-fill me-1"></i> Informasi Profil
+                        </h5>
+
+                        <div class="mb-3">
+                            <label asp-for="Input.FullName" class="form-label fw-semibold">
+                                Nama Lengkap
+                            </label>
+                            <input asp-for="Input.FullName" class="form-control" placeholder="Nama lengkap siswa" />
+                            <span asp-validation-for="Input.FullName" class="text-danger small"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Input.Nisn" class="form-label fw-semibold">
+                                NISN
+                            </label>
+                            <input asp-for="Input.Nisn" class="form-control" placeholder="Nomor Induk Siswa Nasional" />
+                            <span asp-validation-for="Input.Nisn" class="text-danger small"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Input.Gender" class="form-label fw-semibold">
+                                Jenis Kelamin
+                            </label>
+                            <select asp-for="Input.Gender" class="form-select">
+                                <option value="">-- Pilih Jenis Kelamin --</option>
+                                <option value="L">Laki-laki</option>
+                                <option value="P">Perempuan</option>
+                            </select>
+                            <span asp-validation-for="Input.Gender" class="text-danger small"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Input.ClassId" class="form-label fw-semibold">
+                                Kelas Aktif
+                            </label>
+                            <select asp-for="Input.ClassId" asp-items="Model.ClassOptions" class="form-select">
+                                <option value="">-- Pilih Kelas --</option>
+                            </select>
+                            <span asp-validation-for="Input.ClassId" class="text-danger small"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Input.Status" class="form-label fw-semibold">
+                                Status Akademik
+                            </label>
+                            <select asp-for="Input.Status" class="form-select">
+                                <option value="Aktif">Aktif</option>
+                                <option value="Lulus">Lulus</option>
+                                <option value="Alumni">Alumni</option>
+                                <option value="Mutasi">Mutasi / Keluar</option>
+                            </select>
+                            <span asp-validation-for="Input.Status" class="text-danger small"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="form-check form-switch mt-4">
+                                <input class="form-check-input" type="checkbox" asp-for="Input.IsActive" id="isActiveSwitch">
+                                <label class="form-check-label fw-semibold" for="isActiveSwitch">Akun Aktif / Bisa Login</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Informasi Akun & Kredensial -->
+                    <div class="col-md-6 ps-md-4">
+                        <h5 class="fw-bold text-primary mb-3">
+                            <i class="bi bi-shield-lock-fill me-1"></i> Keamanan Akun
+                        </h5>
+
+                        <div class="mb-3">
+                            <label asp-for="Input.Username" class="form-label fw-semibold">
+                                Username
+                            </label>
+                            <input asp-for="Input.Username" class="form-control" placeholder="Username untuk login" />
+                            <span asp-validation-for="Input.Username" class="text-danger small"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Input.Email" class="form-label fw-semibold">
+                                Email
+                            </label>
+                            <input asp-for="Input.Email" class="form-control" placeholder="Alamat email aktif" />
+                            <span asp-validation-for="Input.Email" class="text-danger small"></span>
+                        </div>
+
+                        <div class="card border-warning bg-warning bg-opacity-10 rounded-3 mt-4">
+                            <div class="card-body">
+                                <h6 class="fw-bold text-warning-emphasis mb-2">
+                                    <i class="bi bi-exclamation-triangle-fill me-1"></i> Atur Ulang Kata Sandi
+                                </h6>
+                                <p class="text-muted small mb-3">
+                                    Isi kolom di bawah jika ingin mereset password siswa ini. Kosongkan jika tidak ingin mengubahnya.
+                                </p>
+                                <div class="mb-2">
+                                    <label asp-for="Input.NewPassword" class="form-label fw-semibold small">
+                                        Password Baru
+                                    </label>
+                                    <input asp-for="Input.NewPassword" type="password" class="form-control form-control-sm" placeholder="Minimal 6 karakter" />
+                                    <span asp-validation-for="Input.NewPassword" class="text-danger small"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="my-4" />
+
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-primary px-4">
+                        <i class="bi bi-save me-1"></i> Simpan Perubahan
+                    </button>
+                    <a asp-page="/Admin/Student/Index" class="btn btn-outline-secondary px-4">
+                        Batal
+                    </a>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

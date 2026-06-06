@@ -1,0 +1,115 @@
+@page "{id:int}"
+@model Literasi.Pages.Admin.Dashboard.MaterialDetailModel
+
+@{
+    ViewData["Title"] = "Detail Bahan Ajar";
+}
+
+<div class="container-fluid">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold mb-1">Detail Bahan Ajar</h2>
+            <p class="text-muted mb-0">Informasi materi pelajaran yang diunggah oleh Guru (Read-Only)</p>
+        </div>
+        <a asp-page="/Admin/Dashboard/Index" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left me-1"></i> Kembali ke Dashboard
+        </a>
+    </div>
+
+    <div class="card border-0 shadow-sm rounded-4">
+        <div class="card-body p-4">
+            
+            <div class="d-flex justify-content-between align-items-start mb-4">
+                <div>
+                    <span class="badge bg-primary-subtle text-primary mb-2 px-3 py-2 fs-6">
+                        @Model.Material.MaterialType.ToString()
+                    </span>
+                    <h3 class="fw-bold mb-1 text-slate-800">@Model.Material.Title</h3>
+                    <p class="text-muted mb-0">
+                        Diunggah pada: @Model.Material.UploadedAt.ToString("dd MMMM yyyy, HH:mm") WIB
+                    </p>
+                </div>
+            </div>
+
+            <div class="row g-4 mb-4">
+                <!-- Metadata Kiri -->
+                <div class="col-md-6 border-end">
+                    <h5 class="fw-bold text-secondary mb-3"><i class="bi bi-info-circle-fill me-1"></i> Informasi Akademik</h5>
+                    <table class="table table-borderless align-middle">
+                        <tr>
+                            <td class="text-muted py-2" width="150px">Guru Pengampu</td>
+                            <td class="fw-semibold">: @Model.Material.TeachingAssignment.Teacher.User.FullName</td>
+                        </tr>
+                        <tr>
+                            <td class="text-muted py-2">Mata Pelajaran</td>
+                            <td class="fw-semibold">: @Model.Material.TeachingAssignment.Subject.SubjectName</td>
+                        </tr>
+                        <tr>
+                            <td class="text-muted py-2">Kelas</td>
+                            <td class="fw-semibold">: @Model.Material.TeachingAssignment.Class.ClassName</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <!-- Metadata Kanan / File link -->
+                <div class="col-md-6 ps-md-4">
+                    <h5 class="fw-bold text-secondary mb-3"><i class="bi bi-file-earmark-arrow-down-fill me-1"></i> Sumber Berkas</h5>
+                    
+                    @if (Model.Material.MaterialType == Literasi.Models.Enums.MaterialType.LINK)
+                    {
+                        <div class="p-3 bg-light rounded-3 mb-3 border">
+                            <h6 class="fw-bold mb-1">Tautan Eksternal:</h6>
+                            <a href="@Model.Material.ExternalUrl" target="_blank" class="text-truncate d-block font-monospace text-decoration-none small">
+                                @Model.Material.ExternalUrl <i class="bi bi-box-arrow-up-right ms-1"></i>
+                            </a>
+                        </div>
+                        <a href="@Model.Material.ExternalUrl" target="_blank" class="btn btn-primary px-4 py-2">
+                            <i class="bi bi-box-arrow-up-right me-1"></i> Buka Tautan Luar
+                        </a>
+                    }
+                    else
+                    {
+                        <div class="p-3 bg-light rounded-3 mb-3 border">
+                            <h6 class="fw-bold mb-1">Nama File:</h6>
+                            <code class="d-block text-truncate small">@Model.Material.FilePath</code>
+                        </div>
+                        @if (!string.IsNullOrEmpty(Model.Material.FilePath))
+                        {
+                            <a href="~/uploads/materials/@Model.Material.FilePath" download class="btn btn-primary px-4 py-2">
+                                <i class="bi bi-download me-1"></i> Unduh Berkas (@Model.Material.MaterialType)
+                            </a>
+                        }
+                        else
+                        {
+                            <button class="btn btn-secondary px-4 py-2" disabled>
+                                <i class="bi bi-exclamation-circle me-1"></i> File tidak ditemukan
+                            </button>
+                        }
+                    }
+                </div>
+            </div>
+
+            <!-- Deskripsi -->
+            <div class="bg-light p-4 rounded-4 border">
+                <h5 class="fw-bold mb-2 text-slate-800"><i class="bi bi-card-text me-1"></i> Deskripsi/Keterangan Materi</h5>
+                @if (!string.IsNullOrWhiteSpace(Model.Material.Description))
+                {
+                    <p class="mb-0 text-slate-700" style="white-space: pre-line;">@Model.Material.Description</p>
+                }
+                else
+                {
+                    <p class="text-muted mb-0 italic">Tidak ada deskripsi tambahan untuk materi ini.</p>
+                }
+            </div>
+
+            <!-- Info Moderasi -->
+            <div class="alert alert-warning rounded-3 mt-4 mb-0" role="alert">
+                <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                <strong>Moderasi Admin:</strong> Hak edit atau hapus materi sepenuhnya dipegang oleh guru yang bersangkutan. Halaman ini disediakan khusus untuk fungsi monitoring operasional LMS Literasi.
+            </div>
+
+        </div>
+    </div>
+
+</div>

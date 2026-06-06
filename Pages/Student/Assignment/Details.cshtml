@@ -1,0 +1,172 @@
+@page "{id:int}"
+@model Literasi.Pages.Student.Assignments.DetailsModel
+
+@{
+    ViewData["Title"] = "Detail Tugas";
+}
+
+<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div class="d-flex justify-content-between align-items-start mb-4">
+        <div>
+            <h2 class="fw-bold mb-1">@Model.Title</h2>
+            <p class="text-muted mb-0">@Model.SubjectName - @Model.ClassName</p>
+        </div>
+        <a asp-page="/Student/Assignment/Index" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left me-1"></i> Kembali
+        </a>
+    </div>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["Success"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+    <div class="row g-4">
+        <div class="col-lg-7">
+            <div class="card border-0 shadow-sm rounded-4 mb-4">
+                <div class="card-body p-4">
+                    <div class="d-flex justify-content-between align-items-start gap-3 mb-3">
+                        <div>
+                            <span class="badge bg-primary-subtle text-primary mb-2">@Model.SubjectName</span>
+                            <h5 class="fw-bold mb-1">Instruksi Tugas</h5>
+                        </div>
+                        <div class="text-end">
+                            <small class="text-muted d-block">Poin Maks</small>
+                            <span class="fw-bold">@Model.MaxScore.ToString("0.##")</span>
+                        </div>
+                    </div>
+
+                    @if (!string.IsNullOrWhiteSpace(Model.Description))
+                    {
+                        <p class="text-muted mb-4">@Model.Description</p>
+                    }
+                    else
+                    {
+                        <p class="text-muted mb-4">Tidak ada deskripsi tambahan dari guru.</p>
+                    }
+
+                    <div class="alert @(Model.IsPastDeadline ? "alert-warning" : "alert-info") rounded-3 mb-0">
+                        <i class="bi bi-clock me-1"></i>
+                        Deadline: <strong>@Model.Deadline.ToString("dd MMM yyyy, HH:mm")</strong>
+                        @if (Model.IsPastDeadline)
+                        {
+                            <span class="ms-1">Pengumpulan setelah waktu ini akan ditandai terlambat.</span>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="card border-0 shadow-sm rounded-4">
+                <div class="card-header bg-white border-0 pt-4 px-4">
+                    <h5 class="fw-bold mb-0">Pengumpulan Anda</h5>
+                </div>
+                <div class="card-body p-4">
+                    @if (Model.HasSubmission)
+                    {
+                        <div class="alert alert-light border rounded-3">
+                            <div class="d-flex justify-content-between align-items-start gap-3">
+                                <div>
+                                    <div class="fw-semibold">Status: @Model.SubmissionStatus</div>
+                                    <small class="text-muted">Dikumpulkan: @Model.SubmittedAt?.ToString("dd MMM yyyy, HH:mm")</small>
+                                </div>
+                                @if (!string.IsNullOrWhiteSpace(Model.SubmittedFileUrl))
+                                {
+                                    <a href="@Model.SubmittedFileUrl" target="_blank" class="btn btn-sm btn-outline-primary">Lihat File</a>
+                                }
+                                else if (!string.IsNullOrWhiteSpace(Model.SubmittedExternalUrl))
+                                {
+                                    <a href="@Model.SubmittedExternalUrl" target="_blank" class="btn btn-sm btn-outline-primary">Buka Link</a>
+                                }
+                            </div>
+                        </div>
+                    }
+
+                    @if (Model.IsReviewed)
+                    {
+                        <div class="alert alert-success rounded-3 mb-0">
+                            Tugas sudah dinilai. Pengumpulan tidak dapat diubah lagi.
+                        </div>
+                    }
+                    else
+                    {
+                        <form method="post" enctype="multipart/form-data">
+                            <div class="mb-3">
+                                <label asp-for="SubmissionType" class="form-label fw-semibold">Jenis Pengumpulan</label>
+                                <select asp-for="SubmissionType" class="form-select" id="submissionTypeSelect" onchange="toggleSubmissionFields()">
+                                    <option value="PDF">Upload File PDF</option>
+                                    <option value="LINK">Link Jawaban</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3" id="fileSection">
+                                <label asp-for="UploadedFile" class="form-label fw-semibold">File Jawaban</label>
+                                <input asp-for="UploadedFile" type="file" accept=".pdf" class="form-control" />
+                                <span asp-validation-for="UploadedFile" class="text-danger small"></span>
+                                <div class="form-text">Maksimal 10MB, format PDF.</div>
+                            </div>
+
+                            <div class="mb-3" id="linkSection" style="display:none;">
+                                <label asp-for="ExternalUrl" class="form-label fw-semibold">Link Jawaban</label>
+                                <input asp-for="ExternalUrl" class="form-control" placeholder="https://..." />
+                                <span asp-validation-for="ExternalUrl" class="text-danger small"></span>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-send me-1"></i> Simpan Pengumpulan
+                            </button>
+                        </form>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-5">
+            <div class="card border-0 shadow-sm rounded-4">
+                <div class="card-header bg-white border-0 pt-4 px-4">
+                    <h5 class="fw-bold mb-0">Nilai & Feedback</h5>
+                </div>
+                <div class="card-body p-4">
+                    @if (Model.Score.HasValue)
+                    {
+                        <div class="text-center border rounded-4 p-4 mb-3 bg-light">
+                            <small class="text-muted d-block">Nilai</small>
+                            <div class="display-5 fw-bold text-primary">@Model.Score.Value.ToString("0.##")</div>
+                            <small class="text-muted">dari @Model.MaxScore.ToString("0.##")</small>
+                        </div>
+
+                        <label class="form-label fw-semibold">Feedback Guru</label>
+                        <div class="border rounded-3 p-3 text-muted">
+                            @(string.IsNullOrWhiteSpace(Model.Feedback) ? "Tidak ada feedback tambahan." : Model.Feedback)
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="text-center text-muted py-5">
+                            <i class="bi bi-hourglass-split d-block fs-1 mb-2"></i>
+                            Nilai belum tersedia.
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        function toggleSubmissionFields() {
+            const type = document.getElementById('submissionTypeSelect').value;
+            document.getElementById('fileSection').style.display = type === 'PDF' ? 'block' : 'none';
+            document.getElementById('linkSection').style.display = type === 'LINK' ? 'block' : 'none';
+        }
+        toggleSubmissionFields();
+    </script>
+}

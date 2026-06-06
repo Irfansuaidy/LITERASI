@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace Literasi.Pages.Teacher.Assignments;
 
@@ -25,15 +26,19 @@ public class EditModel : PageModel
 
     public async Task<IActionResult> OnGetAsync(int id)
     {
+        var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+        var teacher = await _context.Teachers.FirstOrDefaultAsync(t => t.UserId == userId);
+        if (teacher == null) return Forbid();
+
         Assignment = await _context.Assignments
+            .Include(a => a.TeachingAssignment)
             .FirstOrDefaultAsync(a =>
-                a.AssignmentId == id);
+                a.AssignmentId == id && a.TeachingAssignment.TeacherId == teacher.TeacherId);
 
         if (Assignment == null)
             return NotFound();
 
         await LoadAssignments();
-
         return Page();
     }
 
@@ -45,36 +50,44 @@ public class EditModel : PageModel
             return Page();
         }
 
-        if (Assignment == null)
-        {
-            return BadRequest();
-        }
+        if (Assignment == null) return BadRequest();
 
-        _context.Attach(Assignment)
-            .State = EntityState.Modified;
+        // Verify ownership
+        var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+        var teacher = await _context.Teachers.FirstOrDefaultAsync(t => t.UserId == userId);
+        if (teacher == null) return Forbid();
 
+        var ownsTA = await _context.TeachingAssignments
+            .AnyAsync(ta => ta.TeachingAssignmentId == Assignment.TeachingAssignmentId
+                         && ta.TeacherId == teacher.TeacherId);
+        if (!ownsTA) return Forbid();
+
+        _context.Attach(Assignment).State = EntityState.Modified;
         await _context.SaveChangesAsync();
 
+        TempData["Success"] = $"Tugas \"{Assignment.Title}\" berhasil diperbarui.";
         return RedirectToPage("./Index");
     }
 
     private async Task LoadAssignments()
     {
-        var assignments =
-            await _context.TeachingAssignments
-                .Include(t => t.Subject)
-                .Include(t => t.Class)
-                .ToListAsync();
+        var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+        var teacher = await _context.Teachers.FirstOrDefaultAsync(t => t.UserId == userId);
 
-        TeachingAssignments =
-            new SelectList(
-                assignments.Select(t => new
-                {
-                    t.TeachingAssignmentId,
-                    Display =
-                        $"{t.Subject.SubjectName} - {t.Class.ClassName}"
-                }),
-                "TeachingAssignmentId",
-                "Display");
+        var assignments = await _context.TeachingAssignments
+            .Include(t => t.Subject)
+            .Include(t => t.Class)
+            .Where(t => t.TeacherId == (teacher != null ? teacher.TeacherId : 0))
+            .OrderBy(t => t.Subject.SubjectName)
+            .ToListAsync();
+
+        TeachingAssignments = new SelectList(
+            assignments.Select(t => new
+            {
+                t.TeachingAssignmentId,
+                Display = $"{t.Subject.SubjectName} - {t.Class.ClassName}"
+            }),
+            "TeachingAssignmentId",
+            "Display");
     }
 }
