@@ -1,0 +1,125 @@
+@page
+@model Literasi.Pages.Student.Class.IndexModel
+@{
+    ViewData["Title"] = "Mata Pelajaran Saya";
+}
+
+<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    @if (!Model.IsProfileComplete)
+    {
+        <div class="bg-amber-50 border-l-4 border-amber-500 p-4 rounded shadow-sm text-center">
+            <p class="text-amber-800 font-bold">Data kelas Anda belum diatur oleh Admin.</p>
+        </div>
+    }
+    else
+    {
+        <div class="mb-6">
+            <h1 class="text-2xl font-extrabold text-slate-900 tracking-tight">Mata Pelajaran Kelas @Model.ClassName</h1>
+            <p class="text-sm text-slate-500 mt-1">Pilih mata pelajaran untuk melihat materi pembelajaran terunggah.</p>
+        </div>
+
+        @if (!Model.SubjectGroups.Any())
+        {
+            <div class="bg-white rounded-xl border border-slate-200 p-12 text-center shadow-sm">
+                <p class="text-slate-400">Belum ada mata pelajaran yang ditugaskan ke kelas Anda.</p>
+            </div>
+        }
+        else
+        {
+            <div class="space-y-4" data-accordion="collapse">
+                @for (int i = 0; i < Model.SubjectGroups.Count; i++)
+                {
+                    var group = Model.SubjectGroups[i];
+                    var headingId = $"heading-{i}";
+                    var bodyId = $"body-{i}";
+
+                    <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+                        <button type="button"
+                                class="w-full p-5 flex justify-between items-center font-bold text-left text-slate-800 bg-slate-50/50 hover:bg-slate-50 transition"
+                                onclick="toggleAccordion('@bodyId', '@headingId')">
+                            <div>
+                                <span
+                                class="text-xs text-blue-600 font-bold uppercase block tracking-wider">@group.SubjectCode</span>
+                                <h2 class="text-base md:text-lg font-extrabold text-slate-800 mt-0.5">@group.SubjectName</h2>
+                                <p class="text-xs text-slate-500 font-normal mt-0.5">Guru: @group.TeacherName</p>
+                            </div>
+                            <svg id="@headingId" class="w-5 h-5 text-slate-500 transform transition-transform duration-200"
+                                 fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+
+                        <div id="@bodyId" class="hidden border-t border-slate-100 bg-white">
+                            <div class="p-5 space-y-4">
+                                @if (!group.Materials.Any())
+                                {
+                                    <p class="text-xs text-slate-400 italic py-2">Belum ada materi pembelajaran yang dibagikan guru.</p>
+                                }
+                                else
+                                {
+                                    <div class="grid grid-cols-1 gap-3">
+                                        @foreach (var material in group.Materials)
+                                        {
+                                            <div
+                                                class="p-4 rounded-xl border border-slate-100 bg-slate-50/30 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                                                <div class="space-y-1">
+                                                    <div class="flex items-center gap-2">
+                                                        <span
+                                                        class="px-1.5 py-0.5 rounded text-[10px] font-bold @(material.MaterialType == "PDF" ? "bg-red-100 text-red-700" : "bg-indigo-100 text-indigo-700")">@material.MaterialType</span>
+                                                        <h3 class="text-sm font-bold text-slate-800">@material.Title</h3>
+                                                    </div>
+                                                    @if (!string.IsNullOrEmpty(material.Description))
+                                                    {
+                                                        <p class="text-xs text-slate-500 max-w-xl">@material.Description</p>
+                                                    }
+                                                </div>
+                                                <div class="flex gap-2 shrink-0">
+                                                    @if (!string.IsNullOrEmpty(material.FilePath))
+                                                    {
+                                                        <a href="~/uploads/materials/@material.FilePath" download
+                                                           class="bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 text-xs font-semibold px-3 py-2 rounded-lg flex items-center gap-1.5 transition">
+                                                            <svg class="w-3.5 h-3.5 text-slate-500" fill="none" viewBox="0 0 24 24"
+                                                                 stroke="currentColor">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                                      d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                                                            </svg> Unduh Berkas
+                                                        </a>
+                                                    }
+                                                    @if (!string.IsNullOrEmpty(material.ExternalUrl))
+                                                    {
+                                                        <a href="@material.ExternalUrl" target="_blank"
+                                                           class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold px-3 py-2 rounded-lg flex items-center gap-1.5 transition">
+                                                            Buka Tautan <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24"
+                                                                         stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                                  d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                                        </svg>
+                                                    </a>
+                                                }
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+}
+</div>
+
+<script>
+    function toggleAccordion(bodyId, iconId) {
+        const element = document.getElementById(bodyId);
+        const icon = document.getElementById(iconId);
+        if (element.classList.contains('hidden')) {
+            element.classList.remove('hidden');
+            icon.classList.add('rotate-180');
+        } else {
+            element.classList.add('hidden');
+            icon.classList.remove('rotate-180');
+        }
+    }
+</script>

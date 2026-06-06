@@ -1,0 +1,90 @@
+@page "{id:int}"
+@model Literasi.Pages.Admin.Classes.EditModel
+
+@{
+    ViewData["Title"] = "Edit Kelas";
+}
+
+<div class="container-fluid">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold mb-1">Edit Kelas</h2>
+            <p class="text-muted mb-0">Ubah data kelas</p>
+        </div>
+        <a asp-page="/Admin/Classes/Index" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left me-1"></i> Kembali
+        </a>
+    </div>
+
+    <div class="card border-0 shadow-sm rounded-4">
+        <div class="card-body p-4">
+
+            <form method="post">
+                <input type="hidden" asp-for="Class.ClassId" />
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+                <div class="mb-3">
+                    <label asp-for="Class.ClassName" class="form-label fw-semibold">
+                        Nama Kelas
+                    </label>
+                    <input asp-for="Class.ClassName" class="form-control"
+                           placeholder="Contoh: X MIPA 1" />
+                    <span asp-validation-for="Class.ClassName" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Class.GradeLevelId" class="form-label fw-semibold">
+                        Tingkat
+                    </label>
+                    <select asp-for="Class.GradeLevelId"
+                            asp-items="Model.GradeLevelOptions"
+                            class="form-select">
+                        <option value="">-- Pilih Tingkat --</option>
+                    </select>
+                    <span asp-validation-for="Class.GradeLevelId" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Class.AcademicYearId" class="form-label fw-semibold">
+                        Tahun Ajaran
+                    </label>
+                    <select asp-for="Class.AcademicYearId"
+                            asp-items="Model.AcademicYearOptions"
+                            class="form-select">
+                        <option value="">-- Pilih Tahun Ajaran --</option>
+                    </select>
+                    <span asp-validation-for="Class.AcademicYearId" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-4">
+                    <label asp-for="Class.HomeroomTeacherId" class="form-label fw-semibold">
+                        Wali Kelas <span class="text-muted fw-normal">(Opsional)</span>
+                    </label>
+                    <select asp-for="Class.HomeroomTeacherId"
+                            asp-items="Model.TeacherOptions"
+                            class="form-select">
+                        <option value="">-- Pilih Wali Kelas --</option>
+                    </select>
+                </div>
+
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-primary px-4">
+                        <i class="bi bi-save me-1"></i> Simpan Perubahan
+                    </button>
+                    <a asp-page="/Admin/Classes/Index" class="btn btn-outline-secondary px-4">
+                        Batal
+                    </a>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

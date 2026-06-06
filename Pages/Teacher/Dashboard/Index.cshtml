@@ -1,0 +1,116 @@
+@page
+@model Literasi.Pages.Teacher.Dashboard.IndexModel
+
+@{
+    ViewData["Title"] = "Dashboard Guru";
+}
+
+<div class="container-fluid">
+
+    <div class="mb-4">
+        <h2 class="fw-bold">
+            Dashboard Guru
+        </h2>
+
+        <p class="text-muted">
+            Ringkasan aktivitas pembelajaran
+        </p>
+    </div>
+
+    <div class="row g-4 mb-4">
+
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm rounded-4">
+                <div class="card-body text-center">
+                    <h1 class="fw-bold text-primary">
+                        @Model.TotalTeachingAssignments
+                    </h1>
+
+                    <p class="text-muted mb-0">
+                        Teaching Assignment
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm rounded-4">
+                <div class="card-body text-center">
+                    <h1 class="fw-bold text-success">
+                        @Model.TotalLearningMaterials
+                    </h1>
+
+                    <p class="text-muted mb-0">
+                        Learning Material
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm rounded-4">
+                <div class="card-body text-center">
+                    <h1 class="fw-bold text-warning">
+                        @Model.TotalAssignments
+                    </h1>
+
+                    <p class="text-muted mb-0">
+                        Assignment
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="card border-0 shadow-sm rounded-4">
+
+        <div class="card-header bg-white">
+            <h5 class="mb-0">
+                Materi Terbaru
+            </h5>
+        </div>
+
+        <div class="card-body">
+
+            <table class="table align-middle">
+
+                <thead>
+                    <tr>
+                        <th>Judul</th>
+                        <th>Mapel</th>
+                        <th>Kelas</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    @if (Model.RecentMaterials.Any())
+                    {
+                        @foreach (var item in Model.RecentMaterials)
+                        {
+                            <tr>
+                                <td>@item.Title</td>
+                                <td>@item.SubjectName</td>
+                                <td>@item.ClassName</td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="3" class="text-center text-muted">
+                                Belum ada materi
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,65 @@
+@page
+@model Literasi.Pages.Teacher.LearningMaterials.IndexModel
+
+@{
+    ViewData["Title"] = "Learning Materials";
+}
+
+<div class="d-flex justify-content-between mb-3">
+
+    <h3>Learning Materials</h3>
+
+    <a asp-page="./Create" class="btn btn-primary">
+        Tambah Materi
+    </a>
+
+</div>
+
+<div class="card border-0 shadow-sm rounded-4">
+
+    <div class="card-body">
+
+        <table class="table">
+
+            <thead>
+                <tr>
+                    <th>Judul</th>
+                    <th>Mapel</th>
+                    <th>Kelas</th>
+                    <th>Tanggal</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                @foreach (var item in Model.LearningMaterials)
+                {
+                    <tr>
+
+                        <td>
+                            @item.Title
+                        </td>
+
+                        <td>
+                            @item.TeachingAssignment.Subject.SubjectName
+                        </td>
+
+                        <td>
+                            @item.TeachingAssignment.Class.ClassName
+                        </td>
+
+                        <td>
+                            @item.UploadedAt
+                            .ToString("dd/MM/yyyy")
+                        </td>
+
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>

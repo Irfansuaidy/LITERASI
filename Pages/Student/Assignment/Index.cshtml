@@ -1,0 +1,151 @@
+@page
+@model Literasi.Pages.Student.Assignments.IndexModel
+@{
+    ViewData["Title"] = "Daftar Tugas";
+}
+
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    @if (!Model.IsProfileComplete)
+    {
+        <div class="bg-amber-50 border-l-4 border-amber-500 p-4 rounded text-center">
+            <p class="text-amber-800 font-bold">Data kelas Anda belum diatur oleh Admin.</p>
+        </div>
+    }
+    else
+    {
+        <div class="mb-6">
+            <h1 class="text-2xl font-extrabold text-slate-900 tracking-tight">Tugas Pembelajaran</h1>
+            <p class="text-sm text-slate-500 mt-1">Pantau tenggat waktu pengumpulan tugas mandiri Anda.</p>
+        </div>
+
+        <div class="border-b border-slate-200 mb-6">
+            <nav class="flex space-x-6" aria-label="Tabs">
+                <button onclick="switchTab('active-pane', 'past-pane', this)"
+                        class="tab-btn border-blue-600 text-blue-600 pb-4 px-1 border-b-2 font-bold text-sm transition">
+                    Tugas Aktif (@Model.ActiveAssignments.Count)
+                </button>
+                <button onclick="switchTab('past-pane', 'active-pane', this)"
+                        class="tab-btn border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300 pb-4 px-1 border-b-2 font-medium text-sm transition">
+                    Sudah Lampau (@Model.PastAssignments.Count)
+                </button>
+            </nav>
+        </div>
+
+        <div class="space-y-6">
+            <div id="active-pane" class="tab-content-panel block">
+                @if (!Model.ActiveAssignments.Any())
+                {
+                    <div class="bg-slate-50 rounded-xl border-2 border-dashed border-slate-200 p-10 text-center">
+                        <p class="text-slate-400 text-sm font-medium">Bagus! Tidak ada tugas aktif yang tersisa.</p>
+                    </div>
+                }
+                else
+                {
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        @foreach (var task in Model.ActiveAssignments)
+                        {
+                            <div
+                                class="bg-white rounded-xl border border-slate-200 shadow-sm p-5 flex flex-col justify-between hover:border-slate-300 transition-all">
+                                <div>
+                                    <div class="flex justify-between items-start gap-2">
+                                        <span
+                                        class="px-2 py-0.5 text-[10px] font-bold bg-indigo-50 text-indigo-700 rounded">@task.SubjectName</span>
+                                        <div class="text-right">
+                                            <span class="text-[10px] block font-semibold text-slate-400">Poin Maks</span>
+                                            <span class="text-xs font-bold text-slate-700">@task.MaxScore</span>
+                                        </div>
+                                    </div>
+                                    <h3 class="font-extrabold text-slate-800 text-base mt-2">@task.Title</h3>
+
+                                    <div class="mt-4 space-y-1.5">
+                                        <div class="flex items-center gap-1.5 text-xs text-rose-600 font-semibold">
+                                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                      d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                            </svg>
+                                            Batas: @task.Deadline.ToString("dd MMM yyyy, HH:mm")
+                                        </div>
+                                        <div class="text-xs flex items-center gap-1">
+                                            <span class="text-slate-400">Status:</span>
+                                            <span
+                                                class="font-bold @(task.SubmissionStatus == "Belum Mengumpulkan" ? "text-amber-600" : "text-emerald-600")">
+                                                @task.SubmissionStatus
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mt-5">
+                                    <a asp-page="/Student/Assignments/Details" asp-route-id="@task.AssignmentId"
+                                       class="w-full text-center block bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs py-2.5 rounded-lg transition shadow-sm">
+                                        Buka Pengumpulan Tugas
+                                    </a>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+
+            <div id="past-pane" class="tab-content-panel hidden">
+                @if (!Model.PastAssignments.Any())
+                {
+                    <p class="text-slate-400 text-center py-6 text-sm">Tidak ada riwayat tugas lampau.</p>
+                }
+                else
+                {
+                    <div class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm">
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left border-collapse">
+                                <thead
+                                    class="bg-slate-50 border-b border-slate-200 text-xs font-bold text-slate-600 uppercase tracking-wider">
+                                    <tr>
+                                        <th class="p-4">Mata Pelajaran</th>
+                                        <th class="p-4">Tugas</th>
+                                        <th class="p-4">Batas Waktu</th>
+                                        <th class="p-4">Status</th>
+                                        <th class="p-4 text-center">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="text-sm divide-y divide-slate-100 text-slate-700">
+                                    @foreach (var task in Model.PastAssignments)
+                                    {
+                                        <tr class="hover:bg-slate-50/50 transition">
+                                            <td class="p-4 font-bold text-slate-900">@task.SubjectName</td>
+                                            <td class="p-4">@task.Title</td>
+                                            <td class="p-4 text-xs text-slate-400 line-through">@task.Deadline.ToString("g")</td>
+                                            <td class="p-4">
+                                                <span
+                                                    class="px-2 py-0.5 rounded text-xs font-bold @(task.SubmissionStatus == "Belum Mengumpulkan" ? "bg-red-50 text-red-600" : "bg-slate-100 text-slate-600")">
+                                                    @task.SubmissionStatus
+                                                </span>
+                                            </td>
+                                            <td class="p-4 text-center">
+                                                <a asp-page="/Student/Assignments/Details" asp-route-id="@task.AssignmentId"
+                                                   class="text-xs font-bold text-blue-600 hover:underline">Detail</a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+</div>
+
+<script>
+    function switchTab(showId, hideId, btnElement) {
+        document.getElementById(showId).classList.remove('hidden');
+        document.getElementById(hideId).classList.add('hidden');
+
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.classList.remove('border-blue-600', 'text-blue-600', 'font-bold');
+            btn.classList.add('border-transparent', 'text-slate-500', 'font-medium');
+        });
+
+        btnElement.classList.remove('border-transparent', 'text-slate-500', 'font-medium');
+        btnElement.classList.add('border-blue-600', 'text-blue-600', 'font-bold');
+    }
+</script>

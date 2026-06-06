@@ -1,0 +1,76 @@
+@page "{id:int}"
+@model Literasi.Pages.Teacher.Assignments.DeleteModel
+
+@{
+    ViewData["Title"] = "Hapus Assignment";
+}
+
+<div class="card border-0 shadow-sm rounded-4">
+
+    <div class="card-header bg-danger text-white">
+        <h4 class="mb-0">
+            Hapus Assignment
+        </h4>
+    </div>
+
+    <div class="card-body">
+
+        <p>
+            Apakah Anda yakin ingin menghapus assignment berikut?
+        </p>
+
+        <hr />
+
+        <dl class="row">
+
+            <dt class="col-sm-3">
+                Judul
+            </dt>
+
+            <dd class="col-sm-9">
+                @Model.Assignment!.Title
+            </dd>
+
+            <dt class="col-sm-3">
+                Mata Pelajaran
+            </dt>
+
+            <dd class="col-sm-9">
+                @Model.Assignment!.TeachingAssignment!.Subject!.SubjectName
+            </dd>
+
+            <dt class="col-sm-3">
+                Kelas
+            </dt>
+
+            <dd class="col-sm-9">
+                @Model.Assignment!.TeachingAssignment!.Class!.ClassName
+            </dd>
+
+            <dt class="col-sm-3">
+                Deadline
+            </dt>
+
+            <dd class="col-sm-9">
+                @Model.Assignment!.Deadline.ToString("dd MMM yyyy HH:mm")
+            </dd>
+
+        </dl>
+
+        <form method="post">
+
+            <input type="hidden" asp-for="Assignment.AssignmentId" />
+
+            <button type="submit" class="btn btn-danger">
+                Hapus
+            </button>
+
+            <a asp-page="./Index" class="btn btn-secondary">
+                Batal
+            </a>
+
+        </form>
+
+    </div>
+
+</div>

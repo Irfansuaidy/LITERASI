@@ -1,0 +1,93 @@
+@page "{id:int}"
+@model Literasi.Pages.Teacher.Assignments.EditModel
+
+@{
+    ViewData["Title"] = "Edit Assignment";
+}
+
+<div class="card border-0 shadow-sm rounded-4">
+
+    <div class="card-header bg-white">
+        <h4 class="mb-0">
+            Edit Assignment
+        </h4>
+    </div>
+
+    <div class="card-body">
+
+        <form method="post">
+
+            <input type="hidden" asp-for="Assignment.AssignmentId" />
+
+            <input type="hidden" asp-for="Assignment.CreatedAt" />
+
+            <div class="mb-3">
+
+                <label class="form-label">
+                    Teaching Assignment
+                </label>
+
+                <select asp-for="Assignment.TeachingAssignmentId" asp-items="Model.TeachingAssignments"
+                        class="form-select">
+                </select>
+
+            </div>
+
+            <div class="mb-3">
+
+                <label asp-for="Assignment.Title" class="form-label">
+                </label>
+
+                <input asp-for="Assignment.Title" class="form-control" />
+
+                <span asp-validation-for="Assignment.Title" class="text-danger">
+                </span>
+
+            </div>
+
+            <div class="mb-3">
+
+                <label asp-for="Assignment.Description" class="form-label">
+                </label>
+
+                <textarea asp-for="Assignment.Description" rows="5" class="form-control">
+                </textarea>
+
+            </div>
+
+            <div class="mb-3">
+
+                <label asp-for="Assignment.Deadline" class="form-label">
+                </label>
+
+                <input asp-for="Assignment.Deadline" type="datetime-local" class="form-control" />
+
+            </div>
+
+            <div class="mb-3">
+
+                <label asp-for="Assignment.MaxScore" class="form-label">
+                </label>
+
+                <input asp-for="Assignment.MaxScore" class="form-control" />
+
+            </div>
+
+            <button type="submit" class="btn btn-primary">
+                Simpan Perubahan
+            </button>
+
+            <a asp-page="./Index" class="btn btn-secondary">
+                Batal
+            </a>
+
+        </form>
+
+    </div>
+
+</div>
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}

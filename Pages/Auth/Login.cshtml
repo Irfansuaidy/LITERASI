@@ -1,0 +1,80 @@
+@page
+@model Literasi.Pages.Auth.LoginModel
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+
+        <div class="col-md-5">
+
+            <div class="card shadow border-0 rounded-4">
+
+                <div class="card-body p-4">
+
+                    <h2 class="text-center mb-2">
+                        LITERASI
+                    </h2>
+
+                    <p class="text-center text-muted mb-4">
+                        Learning Management System
+                    </p>
+
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger">
+                    </div>
+
+                    <form method="post">
+
+                        @Html.AntiForgeryToken()
+
+                        <div class="mb-3">
+
+                            <label asp-for="Login.Username" class="form-label">
+                            </label>
+
+                            <input asp-for="Login.Username" class="form-control rounded-3"
+                                   placeholder="Masukkan username" />
+
+                            <span asp-validation-for="Login.Username" class="text-danger small">
+                            </span>
+
+                        </div>
+
+                        <div class="mb-3">
+
+                            <label asp-for="Login.Password" class="form-label">
+                            </label>
+
+                            <input asp-for="Login.Password" type="password" class="form-control rounded-3"
+                                   placeholder="Masukkan password" />
+
+                            <span asp-validation-for="Login.Password" class="text-danger small">
+                            </span>
+
+                        </div>
+
+                        <div class="d-grid">
+
+                            <button type="submit" class="btn btn-primary rounded-3">
+                                Login
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}

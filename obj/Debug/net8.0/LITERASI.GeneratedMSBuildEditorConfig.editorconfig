@@ -1,0 +1,163 @@
+is_global = true
+build_property.TargetFramework = net8.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = LITERASI
+build_property.RootNamespace = LITERASI
+build_property.ProjectDir = /home/irfann/informatika/Literasi/
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 8.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = /home/irfann/informatika/Literasi
+build_property._RazorSourceGeneratorDebug = 
+
+[/home/irfann/informatika/Literasi/Pages/Admin/AcademicYears/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQWRtaW4vQWNhZGVtaWNZZWFycy9DcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/irfann/informatika/Literasi/Pages/Admin/AcademicYears/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQWRtaW4vQWNhZGVtaWNZZWFycy9FZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/irfann/informatika/Literasi/Pages/Admin/AcademicYears/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQWRtaW4vQWNhZGVtaWNZZWFycy9JbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/irfann/informatika/Literasi/Pages/Admin/Classes/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQWRtaW4vQ2xhc3Nlcy9DcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/irfann/informatika/Literasi/Pages/Admin/Classes/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQWRtaW4vQ2xhc3Nlcy9FZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/irfann/informatika/Literasi/Pages/Admin/Classes/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQWRtaW4vQ2xhc3Nlcy9JbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/irfann/informatika/Literasi/Pages/Admin/Dashboard/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQWRtaW4vRGFzaGJvYXJkL0luZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/irfann/informatika/Literasi/Pages/Admin/Student/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQWRtaW4vU3R1ZGVudC9DcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/irfann/informatika/Literasi/Pages/Admin/Student/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQWRtaW4vU3R1ZGVudC9JbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/irfann/informatika/Literasi/Pages/Admin/Subjects/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQWRtaW4vU3ViamVjdHMvSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/irfann/informatika/Literasi/Pages/Admin/Teachers/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQWRtaW4vVGVhY2hlcnMvQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/irfann/informatika/Literasi/Pages/Admin/Teachers/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQWRtaW4vVGVhY2hlcnMvSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/irfann/informatika/Literasi/Pages/Admin/TeachingAssignment/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQWRtaW4vVGVhY2hpbmdBc3NpZ25tZW50L0NyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/irfann/informatika/Literasi/Pages/Admin/TeachingAssignment/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQWRtaW4vVGVhY2hpbmdBc3NpZ25tZW50L0luZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/irfann/informatika/Literasi/Pages/Auth/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQXV0aC9Mb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/irfann/informatika/Literasi/Pages/Auth/Logout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQXV0aC9Mb2dvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/irfann/informatika/Literasi/Pages/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRXJyb3IuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/irfann/informatika/Literasi/Pages/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/irfann/informatika/Literasi/Pages/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUHJpdmFjeS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/irfann/informatika/Literasi/Pages/Shared/_AdminSidebar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU2hhcmVkL19BZG1pblNpZGViYXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/irfann/informatika/Literasi/Pages/Shared/_StudentSidebar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU2hhcmVkL19TdHVkZW50U2lkZWJhci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/irfann/informatika/Literasi/Pages/Shared/_TeacherSidebar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU2hhcmVkL19UZWFjaGVyU2lkZWJhci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/irfann/informatika/Literasi/Pages/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU2hhcmVkL19WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/irfann/informatika/Literasi/Pages/Student/Assignment/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU3R1ZGVudC9Bc3NpZ25tZW50L0luZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/irfann/informatika/Literasi/Pages/Student/Class/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU3R1ZGVudC9DbGFzcy9JbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/irfann/informatika/Literasi/Pages/Student/Dashboard/Dashboard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU3R1ZGVudC9EYXNoYm9hcmQvRGFzaGJvYXJkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/irfann/informatika/Literasi/Pages/Teacher/Assignment/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvVGVhY2hlci9Bc3NpZ25tZW50L0NyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/irfann/informatika/Literasi/Pages/Teacher/Assignment/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvVGVhY2hlci9Bc3NpZ25tZW50L0RlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/irfann/informatika/Literasi/Pages/Teacher/Assignment/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvVGVhY2hlci9Bc3NpZ25tZW50L0VkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/irfann/informatika/Literasi/Pages/Teacher/Assignment/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvVGVhY2hlci9Bc3NpZ25tZW50L0luZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/irfann/informatika/Literasi/Pages/Teacher/Dashboard/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvVGVhY2hlci9EYXNoYm9hcmQvSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/irfann/informatika/Literasi/Pages/Teacher/Materials/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvVGVhY2hlci9NYXRlcmlhbHMvQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/irfann/informatika/Literasi/Pages/Teacher/Materials/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvVGVhY2hlci9NYXRlcmlhbHMvSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/irfann/informatika/Literasi/Pages/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/irfann/informatika/Literasi/Pages/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/irfann/informatika/Literasi/Pages/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU2hhcmVkL19MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-tjqkz76gmz

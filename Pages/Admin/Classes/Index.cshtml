@@ -1,0 +1,84 @@
+@page
+@model Literasi.Pages.Admin.Classes.IndexModel
+
+@{
+    ViewData["Title"] = "Kelas";
+}
+
+<div class="container-fluid">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold mb-1">Kelas</h2>
+            <p class="text-muted mb-0">Kelola data kelas</p>
+        </div>
+        <a asp-page="/Admin/Classes/Create" class="btn btn-primary">
+            <i class="bi bi-plus-lg me-1"></i> Tambah Kelas
+        </a>
+    </div>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show rounded-3" role="alert">
+            <i class="bi bi-check-circle me-2"></i> @TempData["Success"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    <div class="card border-0 shadow-sm rounded-4">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table align-middle">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Nama Kelas</th>
+                            <th>Tingkat</th>
+                            <th>Tahun Ajaran</th>
+                            <th>Wali Kelas</th>
+                            <th>Jumlah Siswa</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.Classes.Any())
+                        {
+                            int no = 1;
+                            @foreach (var item in Model.Classes)
+                            {
+                                <tr>
+                                    <td>@no++</td>
+                                    <td class="fw-semibold">@item.ClassName</td>
+                                    <td>@item.GradeLevel</td>
+                                    <td>@item.AcademicYear</td>
+                                    <td>@(item.HomeroomTeacher ?? "-")</td>
+                                    <td>
+                                        <span class="badge bg-primary-subtle text-primary">
+                                            @item.StudentCount siswa
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <a asp-page="/Admin/Classes/Edit"
+                                           asp-route-id="@item.ClassId"
+                                           class="btn btn-sm btn-outline-primary">
+                                            <i class="bi bi-pencil"></i> Edit
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="7" class="text-center text-muted py-4">
+                                    Belum ada data kelas
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
